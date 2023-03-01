@@ -1,0 +1,20 @@
+{
+  "name": "labecommerce-backend",
+  "version": "1.0.0",
+  "description": "Projeto para prática de backend com as instruções do curso da Labenu.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrunoPC66/labecommerce-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrunoPC66/labecommerce-backend/issues"
+  },
+  "homepage": "https://github.com/BrunoPC66/labecommerce-backend#readme"
+}
