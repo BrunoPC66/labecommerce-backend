@@ -1,19 +1,26 @@
 export type TUser = {
-    id: string,
+    id: number,
     email: string,
     password: string
-}
+};
+
+export enum ToProducts {
+    ACCESSORIES = "Acessórios",
+    CLOTHES_AND_SHOES = "Roupas e calçados",
+    ELECTRONICS = "Eletrônicos",
+    FRUITS = "Frutas"
+};
 
 export type TProduct = {
-    id: string,
+    id: number,
     name: string,
     price: number,
-    category: string
-}
+    category: ToProducts
+};
 
 export type TPurchase = {
-    userId: string,
-    productId: string,
+    userId: number,
+    productId: number,
     quantity: number,
     totalPrice: number
-}
+};
