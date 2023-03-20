@@ -1,5 +1,5 @@
 export type TUser = {
-    id: number,
+    id: string,
     email: string,
     password: string
 };
@@ -12,15 +12,15 @@ export enum ToProducts {
 };
 
 export type TProduct = {
-    id: number,
+    id: string,
     name: string,
     price: number,
     category: ToProducts
 };
 
 export type TPurchase = {
-    userId: number,
-    productId: number,
+    userId: string,
+    productId: string,
     quantity: number,
     totalPrice: number
 };

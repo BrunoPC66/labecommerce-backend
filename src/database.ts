@@ -1,43 +1,43 @@
 import {TUser, TProduct, TPurchase, ToProducts} from "./types"
 
-const users: TUser[] = [
+export const users: TUser[] = [
     {
-        id: 1,
+        id: "u01",
         email: "bruno@gmail.com",
         password: "01234"
     },
     {
-        id: 2,
+        id: "u02",
         email: "nayara@gmail.com",
         password: "56789"
     }
 ];
 
-const products: TProduct[] = [
+export const products: TProduct[] = [
     {
-        id: 1,
+        id: "p01",
         name: "manga",
         price: 6,
         category: ToProducts.FRUITS
     },
     {
-        id: 2,
+        id: "p02",
         name: "goiaba",
         price: 4,
         category: ToProducts.FRUITS
     }
 ];
 
-const purchases: TPurchase[] = [
+export const purchases: TPurchase[] = [
     {
-        userId: 1,
-        productId: 2,
+        userId: "u01",
+        productId: "p02",
         quantity: 3,
         totalPrice: 12
     },
     {
-        userId: 2,
-        productId: 1,
+        userId: "u02",
+        productId: "p01",
         quantity: 2,
         totalPrice: 12
     }
@@ -49,7 +49,7 @@ const allProducts : TProduct[] = [...products];
 
 const allPurchases : TPurchase[] = [...purchases];
 
-export function createUser (id: number, email: string, password: string) : void {
+export function createUser (id: string, email: string, password: string) : void {
     allUsers.push({
         id: id,
         email: email,
@@ -62,7 +62,7 @@ export function getAllUsers () {
     console.table(allUsers)
 };
 
-export function createProduct (id: number, name: string, price: number, category: ToProducts) : void {
+export function createProduct (id: string, name: string, price: number, category: ToProducts) : void {
     allProducts.push({
         id: id,
         name: name,
@@ -76,7 +76,7 @@ export function getAllProducts () {
     console.table(allProducts)
 };
 
-export function getProductById (id: number) {  
+export function getProductById (id: string) {  
     const getId = allProducts.filter((product) => {
         return product.id === id
     })
@@ -92,7 +92,7 @@ export function getProductByName (name: string) {
     return console.table(getName)
 };
 
-export function makeANewPurchase (userId: number, productId: number, quantity: number, totalPrice: number) : void {
+export function makeANewPurchase (userId: string, productId: string, quantity: number, totalPrice: number) : void {
     allPurchases.push({
         userId: userId,
         productId: productId,
@@ -102,7 +102,7 @@ export function makeANewPurchase (userId: number, productId: number, quantity: n
     console.log("Compra efetuada com sucesso");
 };
 
-export function getAllPurchasesFromUserId (userId: number) {
+export function getAllPurchasesFromUserId (userId: string) {
     const purchased = allPurchases.filter((purchase) => {
         return purchase.userId === userId
     })
