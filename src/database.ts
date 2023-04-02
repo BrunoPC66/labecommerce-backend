@@ -2,12 +2,12 @@ import {TUser, TProduct, TPurchase, ToProducts} from "./types"
 
 export const users: TUser[] = [
     {
-        id: "u01",
+        id: "u001",
         email: "bruno@gmail.com",
         password: "01234"
     },
     {
-        id: "u02",
+        id: "u002",
         email: "nayara@gmail.com",
         password: "56789"
     }
@@ -15,13 +15,13 @@ export const users: TUser[] = [
 
 export const products: TProduct[] = [
     {
-        id: "p01",
+        id: "p001",
         name: "manga",
         price: 6,
         category: ToProducts.FRUITS
     },
     {
-        id: "p02",
+        id: "p002",
         name: "goiaba",
         price: 4,
         category: ToProducts.FRUITS
@@ -30,14 +30,14 @@ export const products: TProduct[] = [
 
 export const purchases: TPurchase[] = [
     {
-        userId: "u01",
-        productId: "p02",
+        userId: "u001",
+        productId: "p002",
         quantity: 3,
         totalPrice: 12
     },
     {
-        userId: "u02",
-        productId: "p01",
+        userId: "u002",
+        productId: "p001",
         quantity: 2,
         totalPrice: 12
     }
