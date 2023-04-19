@@ -2,9 +2,7 @@ import { users, products, purchases, createProduct, createUser, getAllProducts, 
 import { ToProducts, TProduct, TUser, TPurchase } from "./types";
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import { pathToFileURL } from "url";
-import { verify } from "crypto";
-
+import { db } from './database/knex'
 
 createUser("u003", "danilo@gmail.com", "13579");
 getAllUsers()
@@ -18,7 +16,7 @@ makeANewPurchase("u002", "p003", 1, 150)
 getAllPurchasesFromUserId("u002")
 
 //=====================================
-//Express I
+//Express && Knex
 
 const app = express();
 
@@ -30,18 +28,21 @@ app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003 com sucesso!");
 });
 
-app.get("/ping", (req: Request, res: Response) => {
+app.get("/ping", async (req: Request, res: Response) => {
     res.send("Pong!")
 });
 
 // getAllUsers
-app.get("/users", (req: Request, res: Response) => {
+app.get("/users", async (req: Request, res: Response) => {
     try {
-        if (!users) {
-            res.status(400)
-            throw new Error("Usuários não encontrados")
+        const result = await db("users")
+
+        if (!result) {
+            res.status(404)
+            throw new Error("Requisição inválida")
         }
-        res.status(200).send(users)
+
+        res.status(200).send(result)
     } catch (err: any) {
         if (res.statusCode === 200) {
             res.status(500).send("Erro inesperado!")
@@ -53,23 +54,27 @@ app.get("/users", (req: Request, res: Response) => {
 
 // getAllProducts
 
-app.get("/products", (req: Request, res: Response) => {
+app.get("/products", async (req: Request, res: Response) => {
     try {
-        if (!products) {
-            res.status(400)
-            throw new Error("Usuários não encontrados")
+        const result = await db("products")
+
+        if (!result) {
+            res.status(404)
+            throw new Error("Requisição inválida")
         }
-        res.status(200).send(products)
+
+        res.status(200).send(result)
     } catch (err: any) {
         if (res.statusCode === 200) {
             res.status(500).send("Erro inesperado!")
         };
         res.send(err.message)
     }
+
 });
 
 // getProductByName
-app.get("/products/search", (req: Request, res: Response) => {
+app.get("/products/search", async (req: Request, res: Response) => {
     try {
         const q = req.query.q as string
 
@@ -100,7 +105,7 @@ app.get("/products/search", (req: Request, res: Response) => {
 });
 
 // createNewUser
-app.post("/users", (req: Request, res: Response) => {
+app.post("/users", async (req: Request, res: Response) => {
     try {
 
         const id = req.body.id as string
@@ -165,7 +170,7 @@ app.post("/users", (req: Request, res: Response) => {
 });
 
 // createNewProduct
-app.post("/products", (req: Request, res: Response) => {
+app.post("/products", async (req: Request, res: Response) => {
     try {
         const id = req.body.id as string
         const name = req.body.name as string
@@ -244,7 +249,7 @@ app.post("/products", (req: Request, res: Response) => {
 });
 
 // makeNewPurchase
-app.post("/purchases", (req: Request, res: Response) => {
+app.post("/purchases", async (req: Request, res: Response) => {
     try {
 
         const userId = req.body.userId as string
@@ -300,7 +305,7 @@ app.post("/purchases", (req: Request, res: Response) => {
 //Express II
 
 // getProductsById
-app.get("/products/:id", (req: Request, res: Response) => {
+app.get("/products/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
@@ -328,7 +333,7 @@ app.get("/products/:id", (req: Request, res: Response) => {
 });
 
 // getPurchaseByUserId
-app.get("/purchases/:userId", (req: Request, res: Response) => {
+app.get("/purchases/:userId", async (req: Request, res: Response) => {
     try {
         const { userId } = req.params
 
@@ -356,7 +361,7 @@ app.get("/purchases/:userId", (req: Request, res: Response) => {
 });
 
 //deleteUserById
-app.delete("/users/:id", (req: Request, res: Response) => {
+app.delete("/users/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
@@ -388,7 +393,7 @@ app.delete("/users/:id", (req: Request, res: Response) => {
 });
 
 //deleteProductById
-app.delete("/products/:id", (req: Request, res: Response) => {
+app.delete("/products/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
@@ -420,7 +425,7 @@ app.delete("/products/:id", (req: Request, res: Response) => {
 });
 
 //editUserById
-app.put("/users/:id", (req: Request, res: Response) => {
+app.put("/users/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
@@ -477,7 +482,7 @@ app.put("/users/:id", (req: Request, res: Response) => {
 
 
 //editProductById
-app.put("/products/:id", (req: Request, res: Response) => {
+app.put("/products/:id", async (req: Request, res: Response) => {
     try {
         const { id } = req.params
 
