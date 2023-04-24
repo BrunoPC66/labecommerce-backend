@@ -98,7 +98,7 @@ app.post("/users", async (req: Request, res: Response) => {
     }
     catch (err: any) {
         if (res.statusCode === 200) {
-            // res.status(500).send("Erro inesperado!")
+            res.status(500).send("Erro inesperado!")
         };
         res.send(err.message)
     }
@@ -220,7 +220,7 @@ app.get("/products", async (req: Request, res: Response) => {
 app.get("/products/search", async (req: Request, res: Response) => {
     try {
         const name = req.query.name as string
-        const result = await db("products").select().where("name", "LIKE", `%${name}%`) //products.filter(item => item.name.toLowerCase().includes(name.toLowerCase()))
+        const result = await db("products").select().where("name", "LIKE", `%${name}%`)
         
         if (name !== undefined) {
             if (name.length < 1) {
@@ -369,19 +369,6 @@ app.put("/products/:id", async (req: Request, res: Response) => {
                 throw new Error("'price' no formato incorreto, precisa ser um number")
             }    
         }
-
-        // if (newCategory !== undefined) {
-        //     if (newCategory !== "Acessórios") {
-        //         if (newCategory !== "Roupas e calçados") {
-        //             if (newCategory !== "Eletrônicos") {
-        //                 if (newCategory !== "Frutas") {
-        //                     res.status(400)
-        //                     throw new Error("Categoria não existente, selecione uma das seguintes: 'Acessórios', 'Roupas e calçados', 'Eletrônicos' ou 'Frutas'")
-        //                 }    
-        //             }
-        //         }    
-        //     }
-        // };
 
         if (getProduct) {
             const editedProduct = {
@@ -615,15 +602,6 @@ app.post("/purchases", async (req: Request, res: Response) => {
             res.status(400)
             throw new Error("'userId' incorreto, selecione um usuário válido")
         };
-
-        // if (paid === 0 || paid === false) {
-        //     paid = false
-        // } if (paid == 1 || paid === true) {
-        //     paid = true
-        // } else {
-        //     res.status(400)
-        //     throw new Error("Defina se a compra foi paga ou não usando um valor booleano ou os números 0 (false) ou 1 (true)")
-        // }
 
         const productsPurchased = cart.map(async (product) => {
             const {productName, quantity} = product
