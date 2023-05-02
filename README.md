@@ -6,3 +6,5 @@ Para a utilização da API acesse o seguinte link:
 https://documenter.getpostman.com/view/24823314/2s93Y5R1Qc
 
 Sinta-se livre para dar suas opiniões ou criticas construtivas.
+
+OBS: Irei refatorar aplicando as práticas de orientação a objetos.
